@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ─────────────────────────────── */
+:root {
+  --sidebar-width: 260px;
+  --header-height: 68px;
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --radius-card: 1.25rem;
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* ─── Base Reset ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #FAF8F3;
+  color: #1A1A1A;
+  line-height: 1.6;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CEC6B5; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #9A8E7A; }
+
+/* ─── Selection ──────────────────────────────────────────── */
+::selection { background: rgba(108, 99, 255, 0.2); color: #1A1A1A; }
+
+/* ─── Focus Visible ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #6C63FF;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Swiper Custom Overrides ────────────────────────────── */
+.swiper-pagination-bullet {
+  background: #CEC6B5 !important;
+  opacity: 1 !important;
+  width: 8px !important;
+  height: 8px !important;
+  transition: all 0.3s ease !important;
+}
+.swiper-pagination-bullet-active {
+  background: #6C63FF !important;
+  width: 24px !important;
+  border-radius: 4px !important;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  width: 44px !important;
+  height: 44px !important;
+  background: rgba(255,255,255,0.9) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12) !important;
+  color: #1A1A1A !important;
+  transition: all 0.3s ease !important;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: #6C63FF !important;
+  color: white !important;
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+/* ─── Utility Classes ────────────────────────────────────── */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .glass-cream {
+    background: rgba(250, 248, 243, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(206, 198, 181, 0.3);
+  }
+
+  .dark .glass-cream {
+    background: rgba(13, 13, 13, 0.85);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, #6C63FF 0%, #8B5CF6 100%);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #6C63FF, #8B5CF6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
+  .card-glow-hover {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .card-glow-hover:hover {
+    box-shadow: 0 0 30px rgba(108, 99, 255, 0.15), 0 12px 40px rgba(0,0,0,0.10);
+    transform: translateY(-4px);
+  }
+}
+
+/* ─── Component Layer ────────────────────────────────────── */
+@layer components {
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2 font-semibold rounded-xl
+           transition-all duration-300 focus-visible:outline-none focus-visible:ring-2
+           focus-visible:ring-primary-500 focus-visible:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed select-none;
+  }
+
+  .card-base {
+    @apply bg-white dark:bg-noir-500 rounded-2xl p-6
+           border border-cream-300 dark:border-noir-400;
+  }
+
+  .input-base {
+    @apply w-full px-4 py-2.5 rounded-xl bg-cream-200 dark:bg-noir-500
+           border border-cream-300 dark:border-noir-400
+           text-noir-500 dark:text-cream-100
+           placeholder:text-cream-600 dark:placeholder:text-noir-200
+           focus:outline-none focus:ring-2 focus:ring-primary-400
+           transition-all duration-200 text-sm;
+  }
+
+  .shadow-card { box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+  .shadow-card-lg { box-shadow: 0 8px 40px rgba(0,0,0,0.10); }
+  .shadow-glow { box-shadow: 0 0 30px rgba(108,99,255,0.25); }
+  .shadow-glow-sm { box-shadow: 0 0 15px rgba(108,99,255,0.15); }
+}
+
+/* ─── Loading Shimmer ────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, #EDE8DC 25%, #FAF8F3 50%, #EDE8DC 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+.dark .shimmer {
+  background: linear-gradient(90deg, #1A1A1A 25%, #2C2C2C 50%, #1A1A1A 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* ─── Animated Background ────────────────────────────────── */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ─── Dark mode body ─────────────────────────────────────── */
+.dark body,
+.dark {
+  background-color: #0D0D0D;
+  color: #FAF8F3;
+}
+.dark ::-webkit-scrollbar-thumb { background: #404040; }
+.dark ::selection { background: rgba(108,99,255,0.3); color: #FAF8F3; }
+
+/* ─── Responsive Typography ──────────────────────────────── */
+@media (max-width: 640px) { html { font-size: 15px; } }
+@media (min-width: 1280px) { html { font-size: 16px; } }
