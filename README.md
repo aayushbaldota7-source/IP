@@ -186,8 +186,3 @@ npm run build
 # Serve the `dist/` folder with any static host (nginx, Caddy, etc.)
 ```
 
----
-
-## 📄 License
-
-MIT © 2025 Noir. Built with ♥ for senior frontend engineers.
